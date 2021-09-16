@@ -3,34 +3,29 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const chalk = require("chalk");
+const ProgressBarPlugin = require("progress-bar-webpack-plugin");
+const OptimizeCSSAssetsPlugin  = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 function resolve(dir) {
     return path.resolve(__dirname, dir)
 };
-// const entrys = require("./entry.js");
-// const htmlArray = [];
 
-// Object.keys(entrys).forEach((element) => {
-//   console.log(element, "element");
-//   htmlArray.push(
-//     new HtmlWebpackPlugin({
-//       filename: "./" + element + "/" + "index.html",
-//       template: "src/" + element + "/" + "index.html",
-//       title: element,
-//       inject: "body",
-//       chunks: [element, "vendor"],
-//     })
-//   );
-// });
-module.exports = {
-    mode:"production",
-    entry: './src/index.js',
+
+const NODE_ENV = process.env.NODE_ENV;
+
+const webpackConfig = {
+    mode:NODE_ENV,
+    entry: {},
     output:{
-        // filename: "./[name]/[name][hash].js",
-        // path: path.resolve(__dirname, "dist"),
-        path : resolve("./dist"),
-        filename: "js/[name].[hash].js",
-        publicPath: "/" 
+        pathinfo: true,
+        filename: 'static/js/[name].bundle.js',
+        chunkFilename: 'static/js/[name].chunk.js',
+        publicPath: '/',
+        path: path.resolve(process.cwd(), 'dist'),
+        devtoolModuleFilenameTemplate: info =>
+         path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
     },
     resolve: {
         extensions: ['.js', '.json'], 
@@ -90,7 +85,30 @@ module.exports = {
             }
         ]
     },
-    optimization: {
+    optimization: NODE_ENV == "production"?{
+        minimizer: [
+            // 自定义js优化配置，将会覆盖默认配置
+            new UglifyJsPlugin({
+                parallel: true,  //使用多进程并行运行来提高构建速度
+                sourceMap: false,
+                uglifyOptions: {
+                    warnings: false,
+                    compress: {
+                        unused: true,
+                        drop_debugger: true,
+                        // drop_console: true, 
+                    },
+                    output: {
+                        comments: false // 去掉注释
+                    }
+                }
+            }),
+            new OptimizeCSSAssetsPlugin({
+                cssProcessorOptions: { 
+                    discardComments: { removeAll: true } // 移除注释
+                } 
+            })
+        ],
         splitChunks: {
           cacheGroups: {
             vendor: {
@@ -100,24 +118,16 @@ module.exports = {
             },
           }
         }
-    },
+    }:{},
     // 插件
     plugins:[
         new CleanWebpackPlugin(),
-        // ...htmlArray,
-        new HtmlWebpackPlugin({
-            filename: resolve('./dist/index.html'), // html模板的生成路径
-            template: 'index.html',//html模板
-            inject: true, // true：默认值，script标签位于html文件的 body 底部
-            hash: true, // 在打包的资源插入html会加上hash
-            //  html 文件进行压缩
-            minify: {
-                removeComments: true,               //去注释
-                collapseWhitespace: true,           //压缩空格
-                removeAttributeQuotes: true         //去除属性 标签的 引号  例如 <p id="test" /> 输出 <p id=test/>
-            }
-        }),
-        new CopyWebpackPlugin({ patterns: [{ from: "./static", to: "./static" }] } )
+        new CopyWebpackPlugin({ patterns: [{ from: "./static", to: "./static" }] } ),
+        new ProgressBarPlugin({
+            complete: "█",
+            format: `${chalk.green('Building')} [ ${chalk.green(':bar')} ] ':msg:' ${chalk.bold('(:percent)')}`,
+            clear: true
+        })
     ],
     // 开发环境本地启动的服务配置
     devServer: {
@@ -125,7 +135,14 @@ module.exports = {
         host:'0.0.0.0',
         contentBase:false,
         port: "8089",
-        historyApiFallback:true,
+        historyApiFallback:{
+            rewrites: [
+                // {from: /^\/login/,to: '/admin.html'},
+                {from: /.*/g,to: '/admin.html'},
+                {from: /^\/page2/,to: '/page2.html'}
+            ]
+
+        },
         proxy: {
             '/api':{
                 target: 'https://dev-snb-admin-api.sinanbao.com',
@@ -144,3 +161,41 @@ module.exports = {
         }
     }
 }
+const glob = require('glob');
+
+function getEntries(globPath) {
+    const files = glob.sync(globPath),
+      entries = {};
+    files.forEach(function(filepath,index) {
+        const split = filepath.split('/');
+        const name = split[split.length - 2];
+        console.log(filepath.split('/'),'changdu')
+        if(filepath.split('/').length>0&&filepath.split('/').length==3){
+            entries[name] = './' + filepath        
+        }
+        
+    });
+    console.log(entries,'???')
+    return entries;
+}
+
+const entries = getEntries('src/**/index.js');
+ 
+Object.keys(entries).forEach(function(name) {
+   webpackConfig.entry[name] = entries[name];
+   const plugin = new HtmlWebpackPlugin({
+            filename: resolve(`./dist/${name}.html`), // html模板的生成路径
+            template: `index.html`,//html模板
+            inject: 'body', // true：默认值，script标签位于html文件的 body 底部
+            hash: true, // 在打包的资源插入html会加上hash
+            chunks: [name, "vendor"],
+            //  html 文件进行压缩
+            minify: NODE_ENV == "production"?{
+                removeComments: true,               //去注释
+                collapseWhitespace: true,           //压缩空格
+                removeAttributeQuotes: true         //去除属性 标签的 引号  例如 <p id="test" /> 输出 <p id=test/>
+            }:false
+    })
+   webpackConfig.plugins.push(plugin);
+})
+module.exports = webpackConfig;

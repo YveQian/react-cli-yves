@@ -1,11 +1,11 @@
 import React from 'react'
 import "./login.less"
-import LogonImg from "@/assets/img/logo.png"
+import LogonImg from "@/admin/assets/img/logo.png"
 import { Input,Button  } from 'antd';
 // import { UserOutlined } from '@ant-design/icons';
 export default class HomeIndex extends React.Component {
     enter(){
-        window.location.href="/layout/articles/articlesList"
+        window.location.href="/admin/layout/articles/articlesList"
     }
     
     render(){

@@ -3,8 +3,8 @@ import React from 'react'
 // import {withRouter} from 'react-router-dom'
 import {Button} from "antd"
 import { inject, observer } from "mobx-react"
-import FunTable from '../../../../components/table.js'
-import globleContext from '../../../../context/globleContext.js'
+import FunTable from '@/../components/table.js'
+import globleContext from '@/../context/globleContext.js'
 
 @inject("testStore")
 @observer

@@ -15,8 +15,8 @@ import {
 } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
-import logo_index from "@/assets/img/logo@2x.png"
-import out_logon from "@/assets/img/out_2x.png"
+import logo_index from "@/admin/assets/img/logo@2x.png"
+import out_logon from "@/admin/assets/img/out_2x.png"
 
 class LayoutIndex extends React.Component {
     rootSubmenuKeys=[]

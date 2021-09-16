@@ -5,7 +5,7 @@ import { Form, Input, DatePicker, TimePicker, Select, Cascader, InputNumber, Row
 const { Option } = Select;
 import './articlesList.less'
 import { DownOutlined } from '@ant-design/icons';
-import {$require} from '@/assets/js/require.js'
+import {$require} from '@/admin/assets/js/require.js'
 import { Table } from 'antd';
 import { inject, observer } from "mobx-react"
 import FunTable from '@/../components/table.js'

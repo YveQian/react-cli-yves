@@ -19,22 +19,22 @@ import UserIndex from "./user"
 
 const layoutList = [
     {
-        path:'/layout/articles/articlesList',
+        path:'/admin/layout/articles/articlesList',
         component:articlesListIndex,
         exact:true
     },
     {
-        path:'/layout/articles/articleCheck',
+        path:'/admin/layout/articles/articleCheck',
         component:articlesCheckIndex,
         exact:true
     },
     {
-        path:'/layout/articles/articlesIsTop',
+        path:'/admin/layout/articles/articlesIsTop',
         component:articlesIsTopIndex,
         exact:true
     },
     {
-        path:'/layout/articles/articlesList/ArticleCommon',
+        path:'/admin/layout/articles/articlesList/ArticleCommon',
         component:Article,
         exact:true
     }
@@ -47,11 +47,11 @@ class AppRouter extends React.Component {
             <BrowserRouter>
                 <Suspense fallback={<div>Loading...</div>}>
                     <Switch>
-                        <Route path="/" component={App} >
-                            <Route path="/login" component={LoginIndex} />
-                            <Route exact path="/resume" component={ResumeIndex}/>
-                            <Route exact path="/user" component={UserIndex}/>
-                            <Route path="/layout/articles"  render={() =>
+                        <Route path="/admin" component={App} >
+                            <Route path="/admin/login" component={LoginIndex} />
+                            <Route exact path="/admin/resume" component={ResumeIndex}/>
+                            <Route exact path="/admin/user" component={UserIndex}/>
+                            <Route path="/admin/layout/articles"  render={() =>
                                 <LayoutIndex>
                                     {
                                         layoutList.map((route,index)=>{         
