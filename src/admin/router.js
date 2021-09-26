@@ -1,6 +1,6 @@
 import React, {lazy, Suspense} from "react"
 import { Route,BrowserRouter,Link,Redirect ,Switch, useRouteMatch, useParams } from "react-router-dom"
-import App from "./index.js"
+import App from "./index.tsx"
 import LoginIndex from "./login"
 import LayoutIndex from "./layout"
 // const articlesListIndex = lazy(()=>import("./layout/pages/articlesList"))
@@ -12,7 +12,7 @@ import LayoutIndex from "./layout"
 import articlesListIndex from "./layout/pages/articlesList"
 import articlesCheckIndex from "./layout/pages/articleCheck"
 import articlesIsTopIndex from "./layout/pages/articlesIsTop"
-import Article from "@/../components/articles.js"
+// import Article from "@/../components/articles.tsx"
 
 import ResumeIndex from "./resume"
 import UserIndex from "./user"
@@ -33,19 +33,19 @@ const layoutList = [
         component:articlesIsTopIndex,
         exact:true
     },
-    {
-        path:'/admin/layout/articles/articlesList/ArticleCommon',
-        component:Article,
-        exact:true
-    }
+    // {
+    //     path:'/admin/layout/articles/articlesList/ArticleCommon',
+    //     component:Article,
+    //     exact:true
+    // }
 ]
 
 class AppRouter extends React.Component {
     render(){
         return (
            
-            <BrowserRouter>
-                <Suspense fallback={<div>Loading...</div>}>
+            <BrowserRouter >
+                {/* <Suspense fallback={<div>Loading...</div>}> */}
                     <Switch>
                         <Route path="/admin" component={App} >
                             <Route path="/admin/login" component={LoginIndex} />
@@ -55,7 +55,7 @@ class AppRouter extends React.Component {
                                 <LayoutIndex>
                                     {
                                         layoutList.map((route,index)=>{         
-                                        return route.exact?<Route exact path={route.path} component={route.component}/>:<Route path={route.path} component={route.component}/>
+                                        return route.exact?<Route exact path={route.path} component={route.component} key={index}/>:<Route path={route.path} component={route.component}  key={index}/>
                                         })
                                     }
                                 </LayoutIndex>
@@ -66,7 +66,7 @@ class AppRouter extends React.Component {
                         
                         
                     </Switch>
-                </Suspense>
+                {/* </Suspense> */}
             </BrowserRouter>
         )
     }

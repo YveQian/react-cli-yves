@@ -431,7 +431,7 @@ class articlesListIndex extends React.Component {
                     <Form.Item label="栏目："  validateStatus="success">
                     <Select allowClear placeholder="请输入栏目" value={this.state.form.column_id}  onChange={(value)=>this.getChangeValue(value,'column_id')}>
                       {column_list.map((item)=>{
-                          return (<Option value={item.id}>{item.column_name}</Option>)
+                          return (<Option value={item.id} key={item.id}>{item.column_name}</Option>)
                       })}
                     </Select>
                     </Form.Item>

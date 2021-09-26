@@ -27,8 +27,8 @@ class LayoutIndex extends React.Component {
         Main_height:0,
         Main_width:0,
         Side_width:0,
-        openKeys: ['/layout/articles'],
-        selectKeys:['/layout/articles/articlesList']
+        openKeys: ['/admin/layout/articles'],
+        selectKeys:['/admin/layout/articles/articlesList']
     }
     // defaultSelectedKeys={['/layout/articles/articlesAll']}
     // defaultOpenKeys={['/layout/articles']}

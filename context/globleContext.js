@@ -4,9 +4,15 @@ import React from "react";
 const artcilesAllData = []
 const culumListData = []
 const tableLoading = false
+const tsxHello = {
+  background:'red',
+  color:'#fff'
+}
 const artcilesAllDataContext = React.createContext(artcilesAllData)
 const artcilesTableLoadingContext = React.createContext(tableLoading)
 const culumListDataContext = React.createContext(culumListData)
+
+const tsxHelloContext = React.createContext(tsxHello)
 
 
 export {
@@ -15,5 +21,6 @@ export {
   culumListData,
   culumListDataContext,
   tableLoading,
-  artcilesTableLoadingContext
+  artcilesTableLoadingContext,
+  tsxHelloContext
 }

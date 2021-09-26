@@ -1,105 +1,105 @@
 const MenuConfig  = [
     {
         title:'文章管理中心',
-        key:'/layout/articles',
+        key:'/admin/layout/articles',
         children:[
             {
                 title:'文章列表',
-                key:'/layout/articles/articlesList'
+                key:'/admin/layout/articles/articlesList'
             },
             {
                 title:'文章审核',
-                key:'/layout/articles/articleCheck'
+                key:'/admin/layout/articles/articleCheck'
             },
             {
                 title:'置顶管理',
-                key:'/layout/articles/articlesIsTop'
+                key:'/admin/layout/articles/articlesIsTop'
             }
         ]
     },
     {
         title:'社区审核',
-        key:'/layout/communityCheck',
+        key:'/admin/layout/communityCheck',
         children:[
             {
                 title:'问题审核（先）',
-                key:'/layout/communityCheck/questioncheckBefore'
+                key:'/admin/layout/communityCheck/questioncheckBefore'
             },
             {
                 title:'问题审核（后）',
-                key:'/layout/communityCheck/questioncheckAfter'
+                key:'/admin/layout/communityCheck/questioncheckAfter'
             },
             {
                 title:'回答审核',
-                key:'/layout/communityCheck/answerCheck'
+                key:'/admin/layout/communityCheck/answerCheck'
             },
             {
                 title:'评论审核',
-                key:'/layout/communityCheck/commentCheck'
+                key:'/admin/layout/communityCheck/commentCheck'
             }
         ]
     },
     {
         title:'社区列表',
-        key:'/layout/communityList',
+        key:'/admin/layout/communityList',
         children:[
             {
                 title:'问题列表',
-                key:'/layout/communityList/questionall'
+                key:'/admin/layout/communityList/questionall'
             },
             {
                 title:'回答列表',
-                key:'/layout/communityList/answerall'
+                key:'/admin/layout/communityList/answerall'
             },
             {
                 title:'评论列表',
-                key:'/layout/communityList/commentall'
+                key:'/admin/layout/communityList/commentall'
             }
         ]
     },
     {
         title:'经纪人管理中心',
-        key:'/layout/agentList',
+        key:'/admin/layout/agentList',
         children:[
             {
                 title:'经纪人审核',
-                key:'/layout/agentList/agentCheck'
+                key:'/admin/layout/agentList/agentCheck'
             },
             {
                 title:'经纪人列表',
-                key:'/layout/agentList/agentAll'
+                key:'/admin/layout/agentList/agentAll'
             },
             {
                 title:'经纪人置顶',
-                key:'/layout/agentList/agentIsTop'
+                key:'/admin/layout/agentList/agentIsTop'
             }
         ]
     },
     {
         title:'用户管理中心',
-        key:'/layout/visitorList',
+        key:'/admin/layout/visitorList',
         children:[
             {
                 title:'用户列表',
-                key:'/layout/visitorList/visitorAll'
+                key:'/admin/layout/visitorList/visitorAll'
             }
         ]
     },
     {
         title:'系统设置',
-        key:'/layout/systemList',
+        key:'/admin/layout/systemList',
         children:[
             {
                 title:'栏目管理',
-                key:'/layout/systemList/columnSet'
+                key:'/admin/layout/systemList/columnSet'
             },
             {
                 title:'banner管理',
-                key:'/layout/systemList/bannerSet'
+                key:'/admin/layout/systemList/bannerSet'
             },
             {
                 title:'cdn与apk管理',
-                key:'/layout/systemList/cdnandapk'
+                key:'/admin/layout/systemList/cdnandapk'
             }
         ]
     }

@@ -1,6 +1,6 @@
 
 import React,{useEffect, useState} from 'react';
-
+import Hello from "../../../../../components/articletsx.tsx";
 import { inject, observer } from "mobx-react";
 
 const articlesIsTopIndex =()=>{
@@ -44,7 +44,8 @@ const TameplateText = ({props})=>{
                         </li>
                     ))
                 }
-            </ul>  
+            </ul>
+            <Hello></Hello>
         </div>
     );
 }
